@@ -26,14 +26,15 @@ namespace dbtest
 
 
         /*
-         *This method will run a simple test query to the database called elements 
+         *This method will run a simple query to the database called elements 
+         * to determine the the entered cation and anion name
          */
-        public dynamic queryDatabase(string inp)
+        public dynamic BinaryQueryDatabase(string inp)
         {
-         
-            string sqlQuery = "SELECT * FROM elements WHERE Symbol LIKE " + inp;
-            SQLiteCommand command = new SQLiteCommand(sqlQuery,M_CONNECTION);
-            return command;
+
+             string sqlQuery = "SELECT * FROM elements WHERE Symbol Like " + "'" +  inp + "'"; 
+             SQLiteCommand command = new SQLiteCommand(sqlQuery,M_CONNECTION);
+             return command;
         }
 
         /*
@@ -48,9 +49,9 @@ namespace dbtest
            
 
             while (reader.Read()) //reads the database based on the query
-            {
+            { 
 
-                elements.Add("Element: " + reader["Name"]);
+                elements.Add("" +reader["Name"]);
                
             }
 

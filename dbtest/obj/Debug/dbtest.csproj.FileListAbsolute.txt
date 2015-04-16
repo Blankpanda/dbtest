@@ -27,3 +27,17 @@ C:\Users\Cellis\Desktop\dbtest\dbtest\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Cellis\Desktop\dbtest\dbtest\bin\Debug\EntityFramework.xml
 C:\Users\Cellis\Desktop\dbtest\dbtest\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Cellis\Desktop\dbtest\dbtest\bin\Debug\System.Data.SQLite.xml
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\dbtest.exe.config
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\obj\Debug\dbtest.exe
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\obj\Debug\dbtest.pdb
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\dbtest.exe
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\dbtest.pdb
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\EntityFramework.dll
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\System.Data.SQLite.dll
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\EntityFramework.xml
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\bin\Debug\System.Data.SQLite.xml
+C:\Users\Cellis\Desktop\working projects\dbtest\dbtest\obj\Debug\dbtest.csprojResolveAssemblyReference.cache
