@@ -18,8 +18,9 @@ namespace dbtest
         static void Main(string[] args)
         {
             compoundNamer = new NamingCompounds();
-            string test = "KCl";
-            Console.WriteLine(compoundNamer.BinaryIonicCompound(test));
+            Console.WriteLine("Enter in a binary Ionic compound: ");
+            string inCompound = Console.ReadLine();
+            Console.WriteLine(compoundNamer.BinaryIonicCompound(inCompound));
             Console.ReadLine();
 
         }

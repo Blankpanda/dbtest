@@ -10,12 +10,9 @@ namespace dbtest
 {
     public class NamingCompounds
     {
-        private static IntializeDatabase DB;
-        private static SQLiteCommand QueryCommand;
-        private static List<string> elements;
-
-
-        
+        private static IntializeDatabase DB; // used for database initalization from Intializedatabase Class
+        private static SQLiteCommand QueryCommand; // used for passing query to the reader from Intialized Database class
+        private static List<string> elements; // used for taking the input from the reader method in IntializedDatabase class
 
             
         /*
@@ -23,6 +20,8 @@ namespace dbtest
          * Binary Ionic Compounds
          *   
          */
+
+
 
         /*
          *This method simply returns a string that expresses  
@@ -52,10 +51,7 @@ namespace dbtest
 
 
 
-
-
                 //queries the database to match symbol to name
-
 
                 // determining the cation
               
@@ -80,11 +76,26 @@ namespace dbtest
             }
             catch (Exception)
             {
+                // add more exception handling
                 Console.WriteLine("Not a binary compound");
+               
+               
+                                  
                 return "";
             }
             
         }
+
+
+
+
+
+
+
+
+
+        /* determines if a string is lower case */
+      
 
 
         /* 
@@ -94,7 +105,7 @@ namespace dbtest
          */
         private string[] splitSymbol(string sym)
         {
-           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");
+           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
         }
 
 
