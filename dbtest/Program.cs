@@ -18,9 +18,11 @@ namespace dbtest
         static void Main(string[] args)
         {
             x = new NamingCompounds();
-            string test = "NaRn";
+
+            Console.WriteLine("Please enter in a compound: ");
+            string inStr = Console.ReadLine();
             
-            Console.WriteLine(x.BinaryIonicCompound(test));
+            Console.WriteLine(x.BinaryIonicCompound(inStr));
             Console.ReadLine();
         }
 

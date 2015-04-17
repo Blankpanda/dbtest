@@ -29,7 +29,7 @@ namespace dbtest
          *or the symbol of the element
          */
 
-        public string  BinaryIonicCompound(string symbolCompound)
+        public string  BinaryIonicCompound(string Compound)
         {
             try
             {
@@ -44,20 +44,20 @@ namespace dbtest
 
 
                 // determine how many characters make up the cation and the anion
-                if (symbolCompound.Length == 2) // example CO
+                if (Compound.Length == 2) // example CO
                 {
-                    cation = symbolCompound.Substring(0, 1);
-                    anion = symbolCompound.Substring(1, 1);
+                    cation = Compound.Substring(0, 1);
+                    anion = Compound.Substring(1, 1);
                 }
-                else if (symbolCompound.Length == 3) // FeS
+                else if (Compound.Length == 3) // FeS
                 {
-                    cation = symbolCompound.Substring(0, 2);
-                    anion = symbolCompound.Substring(2, 1);
+                    cation = Compound.Substring(0, 2);
+                    anion = Compound.Substring(2, 1);
                 }
-                else if (symbolCompound.Length == 4) //NaCl
+                else if (Compound.Length == 4) //NaCl
                 {
-                    cation = symbolCompound.Substring(0, 2);
-                    anion = symbolCompound.Substring(2, 2);
+                    cation = Compound.Substring(0, 2);
+                    anion = Compound.Substring(2, 2);
                 }
 
 
