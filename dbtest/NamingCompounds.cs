@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace dbtest
 {
     public class NamingCompounds
     {
-        private static IntializeDatabase DB;
-        private static SQLiteCommand QueryCommand;
-        private static List<string> elements;
-
-
-        
+        private static IntializeDatabase DB; // used for database initalization from Intializedatabase Class
+        private static SQLiteCommand QueryCommand; // used for passing query to the reader from Intialized Database class
+        private static List<string> elements; // used for taking the input from the reader method in IntializedDatabase class
 
             
         /*
@@ -23,73 +21,91 @@ namespace dbtest
          *   
          */
 
+
+
         /*
          *This method simply returns a string that expresses  
          *Binary Ionic compounds when the user enters in either the full word
          *or the symbol of the element
          */
 
-        public string  BinaryIonicCompound(string Compound)
+        public string  BinaryIonicCompound(string symbolCompound)
         {
             try
             {
                 string cation = "";
                 string anion = "";
                 string verboseCompound = "";
+                string[] split = new string[1];
+                
 
                 DB = new IntializeDatabase(); //initalize the data base object
                 DB.openDataBase(); // open the database in working directory
                 QueryCommand = new SQLiteCommand(); // initalize the command to pass into the reader
                 elements = new List<string>(); // initalize list for database elements
 
+                // returns seperated cation and anion
+                split = splitSymbol(symbolCompound); // consider renaming some stuff here               
+                cation = split[0];
+                anion = split[1];
 
-                // determine how many characters make up the cation and the anion
-                if (Compound.Length == 2) // example CO
-                {
-                    cation = Compound.Substring(0, 1);
-                    anion = Compound.Substring(1, 1);
-                }
-                else if (Compound.Length == 3) // FeS
-                {
-                    cation = Compound.Substring(0, 2);
-                    anion = Compound.Substring(2, 1);
-                }
-                else if (Compound.Length == 4) //NaCl
-                {
-                    cation = Compound.Substring(0, 2);
-                    anion = Compound.Substring(2, 2);
-                }
 
 
                 //queries the database to match symbol to name
 
-
                 // determining the cation
+              
+                    QueryCommand = DB.BinaryQueryDatabase(cation); // query the database and pass the query to the reader
+                    elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
+                    cation = elements[0];
 
-                QueryCommand = DB.BinaryQueryDatabase(cation); // query the database and pass the query to the reader
-                elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
-                cation = elements[0];
+                    //determining the anion
+                    QueryCommand = DB.BinaryQueryDatabase(anion);
+                    elements = DB.readDatabase(QueryCommand);
+                    anion = elements[0];
 
-                //determining the anion
-                QueryCommand = DB.BinaryQueryDatabase(anion);
-                elements = DB.readDatabase(QueryCommand);
-                anion = elements[0];
+                    // adding "ide" to the end of the anion         
+                    anion = verbalIonization(anion);
 
-                // adding "ide" to the end of the anion         
-                anion = verbalIonization(anion);
-               
-             
-                verboseCompound = cation + " " + anion; // combine the cation and the anion a single statement
 
+                    verboseCompound = cation + " " + anion; // combine the cation and the anion a single statement
+
+                
                 return verboseCompound; 
 
             }
             catch (Exception)
             {
+                // add more exception handling
                 Console.WriteLine("Not a binary compound");
+               
+               
+                                  
                 return "";
             }
             
+        }
+
+
+
+
+
+
+
+
+
+        /* determines if a string is lower case */
+      
+
+
+        /* 
+         * determine how many characters make up the cation and the anion
+            using captials to seperate the symbols into cation and anion 
+         * 
+         */
+        private string[] splitSymbol(string sym)
+        {
+           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
         }
 
 
@@ -119,14 +135,14 @@ namespace dbtest
             }
 
             
-           
-
-
-           
+      
             anion = anion + "ide";
             return anion;
         }
 
+        /*
+         * reverses string to make words easier to remove from 
+         */
         private static string reverseString(string anion)
         {
             char[] cARR = anion.ToCharArray();
@@ -138,6 +154,7 @@ namespace dbtest
 
         }
 
+       
 
 
 
