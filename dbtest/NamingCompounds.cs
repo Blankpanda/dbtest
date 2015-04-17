@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace dbtest
@@ -36,51 +37,44 @@ namespace dbtest
                 string cation = "";
                 string anion = "";
                 string verboseCompound = "";
+                string[] split = new string[1];
+                
 
                 DB = new IntializeDatabase(); //initalize the data base object
                 DB.openDataBase(); // open the database in working directory
                 QueryCommand = new SQLiteCommand(); // initalize the command to pass into the reader
                 elements = new List<string>(); // initalize list for database elements
 
+                // returns seperated cation and anion
+                split = splitSymbol(symbolCompound); // consider renaming some stuff here               
+                cation = split[0];
+                anion = split[1];
 
-                // determine how many characters make up the cation and the anion
-                if (symbolCompound.Length == 2) // example CO
-                {
-                    cation = symbolCompound.Substring(0, 1);
-                    anion = symbolCompound.Substring(1, 1);
-                }
-                else if (symbolCompound.Length == 3) // FeS
-                {
-                    cation = symbolCompound.Substring(0, 2);
-                    anion = symbolCompound.Substring(2, 1);
-                }
-                else if (symbolCompound.Length == 4) //NaCl
-                {
-                    cation = symbolCompound.Substring(0, 2);
-                    anion = symbolCompound.Substring(2, 2);
-                }
+
+
 
 
                 //queries the database to match symbol to name
 
 
                 // determining the cation
+              
+                    QueryCommand = DB.BinaryQueryDatabase(cation); // query the database and pass the query to the reader
+                    elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
+                    cation = elements[0];
 
-                QueryCommand = DB.BinaryQueryDatabase(cation); // query the database and pass the query to the reader
-                elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
-                cation = elements[0];
+                    //determining the anion
+                    QueryCommand = DB.BinaryQueryDatabase(anion);
+                    elements = DB.readDatabase(QueryCommand);
+                    anion = elements[0];
 
-                //determining the anion
-                QueryCommand = DB.BinaryQueryDatabase(anion);
-                elements = DB.readDatabase(QueryCommand);
-                anion = elements[0];
+                    // adding "ide" to the end of the anion         
+                    anion = verbalIonization(anion);
 
-                // adding "ide" to the end of the anion         
-                anion = verbalIonization(anion);
-               
-             
-                verboseCompound = cation + " " + anion; // combine the cation and the anion a single statement
 
+                    verboseCompound = cation + " " + anion; // combine the cation and the anion a single statement
+
+                
                 return verboseCompound; 
 
             }
@@ -90,6 +84,17 @@ namespace dbtest
                 return "";
             }
             
+        }
+
+
+        /* 
+         * determine how many characters make up the cation and the anion
+            using captials to seperate the symbols into cation and anion 
+         * 
+         */
+        private string[] splitSymbol(string sym)
+        {
+           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");
         }
 
 
@@ -119,14 +124,14 @@ namespace dbtest
             }
 
             
-           
-
-
-           
+      
             anion = anion + "ide";
             return anion;
         }
 
+        /*
+         * reverses string to make words easier to remove from 
+         */
         private static string reverseString(string anion)
         {
             char[] cARR = anion.ToCharArray();
@@ -138,6 +143,7 @@ namespace dbtest
 
         }
 
+       
 
 
 

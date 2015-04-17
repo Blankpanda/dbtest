@@ -12,16 +12,16 @@ namespace dbtest
     class Program 
     {
        
-       private static NamingCompounds x;
+       private static NamingCompounds compoundNamer;
 
        
         static void Main(string[] args)
         {
-            x = new NamingCompounds();
-            string test = "NaRn";
-            
-            Console.WriteLine(x.BinaryIonicCompound(test));
+            compoundNamer = new NamingCompounds();
+            string test = "KCl";
+            Console.WriteLine(compoundNamer.BinaryIonicCompound(test));
             Console.ReadLine();
+
         }
 
         /*
