@@ -10,7 +10,7 @@ namespace dbtest
 
     class IntializeDatabase
     {
-        private static SQLiteConnection M_CONNECTION;
+        private static SQLiteConnection E_CONNECTION;
 
 
         /*
@@ -20,22 +20,34 @@ namespace dbtest
         public void openDataBase()
         {
             var openString = "data source=elements.db";
-            M_CONNECTION = new SQLiteConnection(openString);
-            M_CONNECTION.Open();
+            E_CONNECTION = new SQLiteConnection(openString);
+            E_CONNECTION.Open();
         }
 
-
+       
         /*
          *This method will run a simple query to the database called elements 
          * to determine the the entered cation and anion name
          */
-        public dynamic BinaryQueryDatabase(string inp)
+        public dynamic I_BinaryQueryDatabase(string inp)
         {
-
              string sqlQuery = "SELECT * FROM elements WHERE Symbol Like " + "'" +  inp + "'"; 
-             SQLiteCommand command = new SQLiteCommand(sqlQuery,M_CONNECTION);
+             SQLiteCommand command = new SQLiteCommand(sqlQuery,E_CONNECTION);
              return command;
         }
+
+
+        /*
+         *This method will run a simple query to the database called polyIons 
+         * to determine the entered polyatomic Ion
+         */
+        public dynamic P_PolyQueryDatabase(string inp)
+        {
+            string sqlQuery = "";
+            SQLiteCommand command = new SQLiteCommand(sqlQuery,E_CONNECTION);
+            return "";
+        }
+
 
         /*
          * this method reads the database and stores the contents of the query
@@ -52,8 +64,9 @@ namespace dbtest
             { 
 
                 elements.Add("" +reader["Name"]);
-               
+
             }
+
 
             return elements;
 

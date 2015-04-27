@@ -53,14 +53,14 @@ namespace dbtest
 
                 //queries the database to match symbol to name
 
-                // determining the cation
+                    // determining the cation
               
-                    QueryCommand = DB.BinaryQueryDatabase(cation); // query the database and pass the query to the reader
+                    QueryCommand = DB.I_BinaryQueryDatabase(cation); // query the database and pass the query to the reader
                     elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
                     cation = elements[0];
 
                     //determining the anion
-                    QueryCommand = DB.BinaryQueryDatabase(anion);
+                    QueryCommand = DB.I_BinaryQueryDatabase(anion);
                     elements = DB.readDatabase(QueryCommand);
                     anion = elements[0];
 
@@ -76,7 +76,7 @@ namespace dbtest
             }
             catch (Exception)
             {
-                // add more exception handling
+                
                 Console.WriteLine("Not a binary compound");
                
                
@@ -86,33 +86,10 @@ namespace dbtest
             
         }
 
-
-
-
-
-
-
-
-
-        /* determines if a string is lower case */
-      
-
-
-        /* 
-         * determine how many characters make up the cation and the anion
-            using captials to seperate the symbols into cation and anion 
-         * 
-         */
-        private string[] splitSymbol(string sym)
-        {
-           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
-        }
-
-
         /*
-         * This method removes the suffix of the element and replaces it with -ide
-         */      
-       private string verbalIonization(string anion)
+       * This method removes the suffix of the element and replaces it with -ide
+       */
+        private string verbalIonization(string anion)
         {
             if (anion.Contains("ine")) // if the elements ends in -ine
             {
@@ -124,22 +101,67 @@ namespace dbtest
             else if (anion.Contains("en")) // if element ends in -en
             {
                 anion = reverseString(anion);
-                anion = anion.Remove(0,4);
+                anion = anion.Remove(0, 4);
                 anion = reverseString(anion);
             }
             else if (anion.Contains("ur")) // if element ends in -ur
             {
                 anion = reverseString(anion);
-                anion = anion.Remove(0,2);
+                anion = anion.Remove(0, 2);
                 anion = reverseString(anion);
             }
 
-            
-      
+
+
             anion = anion + "ide";
             return anion;
         }
 
+
+
+        /*
+        * 
+        * Polyatomic Ions
+        *   
+        */
+
+        private string CommonPolyatomicIons(string symbolCompound)
+        {
+
+
+
+
+            return "";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       /*
+        * 
+        * General use methods 
+        * 
+        */
+
+        /* used to spilt the symbols into seperate elements in an array */
+        private string[] splitSymbol(string sym)
+        {
+           return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
+        }
+
+
+      
         /*
          * reverses string to make words easier to remove from 
          */

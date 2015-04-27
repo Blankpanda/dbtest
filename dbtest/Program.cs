@@ -24,6 +24,10 @@ namespace dbtest
             
             Console.WriteLine(x.BinaryIonicCompound(inStr));
             Console.ReadLine();
+
+            
+
+
         }
 
         /*
