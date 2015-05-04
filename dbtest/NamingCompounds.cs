@@ -36,7 +36,7 @@ namespace dbtest
                 string cation = "";
                 string anion = "";
                 string verboseCompound = "";
-                string[] split = new string[1];
+               
                 
 
                 DB = new IntializeDatabase(); //initalize the data base object
@@ -44,10 +44,21 @@ namespace dbtest
                 QueryCommand = new SQLiteCommand(); // initalize the command to pass into the reader
                 elements = new List<string>(); // initalize list for database elements
 
-                // returns seperated cation and anion
-                split = splitSymbol(symbolCompound); // consider renaming some stuff here               
-                cation = split[0];
-                anion = split[1];
+                // returns seperated cation and anion and places it into a list
+                 List<string> symbolsSplit = new List<string>(splitSymbolByCapital(symbolCompound));
+
+                 cation = symbolsSplit[0];
+                 anion = symbolsSplit[1];
+
+               /*exception code determine if the user entered in the wrong type of formula */
+
+                 if ( symbolsSplit[1].Contains("O") || symbolsSplit[symbolsSplit.Count - 1].Contains("O"))
+                 {
+                     Console.WriteLine("Element is an oxide or is invalid");
+                     return "";
+                 }
+
+           
 
 
 
@@ -155,7 +166,7 @@ namespace dbtest
         */
 
         /* used to spilt the symbols into seperate elements in an array */
-        private string[] splitSymbol(string sym)
+        private string[] splitSymbolByCapital(string sym)
         {
            return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
         }
@@ -168,9 +179,7 @@ namespace dbtest
         private static string reverseString(string anion)
         {
             char[] cARR = anion.ToCharArray();
-            Array.Reverse(cARR);
-
-            
+            Array.Reverse(cARR); 
 
             return new string(cARR);
 
