@@ -12,7 +12,27 @@ namespace dbtest
 
     class PeriodicTable
     {
-        int[] period18Numbers = { 2, 10, 18, 36, 54, 86, 118 };
+        int[] periodIndexs = { 7,   //1
+                               6,   //2
+                               4,   //3
+                               6,   //4
+                               6,   //5
+                               6,   //6
+                               6,   //7
+                               6,   //8
+                               6,   //9
+                               6,   //10
+                               6,   //11
+                               6,   //12
+                               8,   //13
+                               8,   //14
+                               8,   //15
+                               8,   //16
+                               8,   //17
+                               7, }; //18
+                                  
+
+
 
 
 
@@ -21,22 +41,39 @@ namespace dbtest
         public void test()
         {
 
-         
+            const int TOTAL_ELEMENT_COUNT = 118; // JUST INCASE WE NEED THIS
+
+            int[][] elementsByPeriodsARR = new int[18][]; // jagged array to hold numbers in a paticular period in an array
 
 
-            int[][] elementsByPeriodsARR = new int[17][];
-            int counter = 0;
-           
-                for (int i = 1; i <= 118; i++)
+            for (int i = 0; i <= elementsByPeriodsARR.Length - 1; i++)  // initalize the values of the array and fill them the with proper
+            {                                                           //amount of space
+			
+                elementsByPeriodsARR[i] = new int[periodIndexs[i]];
+               
+                
+			}
+
+            // sample outputish
+            for (int i = 0; i < elementsByPeriodsARR.Length; i++)
+            {
+                Console.Write("Period # {0} contains: ", i);
+
+
+
+                int[] innerArr = elementsByPeriodsARR[i];
+                for (int j = 0; j < innerArr.Length; j++)
                 {
-                    elementsByPeriodsARR[counter][i] = i;
-
-                   if (i == Array.BinarySearch(period18Numbers,i))
-                   {
-                       counter++;
-                   }
-
+                    Console.Write(innerArr[j] + " ");
                 }
+
+                Console.WriteLine();
+
+            }
+
+
+
+            
             
 
 
