@@ -23,7 +23,16 @@ namespace dbtest
             string inStr = Console.ReadLine();
 
             Console.WriteLine(x.BinaryIonicCompound(inStr));
+
+
+
+            PeriodicTable test = new PeriodicTable();
+
+            test.test();
+            
+            
             Console.ReadLine();
+
 
 
 

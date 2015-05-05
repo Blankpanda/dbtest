@@ -12,8 +12,13 @@ namespace dbtest
 
     class PeriodicTable
     {
+        public const int TOTAL_ELEMENT_COUNT = 118; // JUST INCASE WE NEED THIS
+
+
+
         public int[][] elementSeperatedByPeriod = new int[][]
         {
+            
             new int[] { 1 , 3 , 11 , 19 , 37 , 55 , 87 },           // 1
             new int[] { 4 , 12 , 20 , 38 , 56 , 88 },               // 2
             new int[] { 21 , 39 , 57 , 89 },                        // 3 
@@ -44,56 +49,12 @@ namespace dbtest
         /* its basically a test of some kind anyway */
         public void test()
         {
-
-            int[] periodIndexs = { 7,   //1
-                               6,   //2
-                               4,   //3
-                               6,   //4
-                               6,   //5
-                               6,   //6
-                               6,   //7
-                               6,   //8
-                               6,   //9
-                               6,   //10
-                               6,   //11
-                               6,   //12
-                               8,   //13
-                               8,   //14
-                               8,   //15
-                               8,   //16
-                               8,   //17
-                               7, }; //18
-                                  
-
-
-            const int TOTAL_ELEMENT_COUNT = 118; // JUST INCASE WE NEED THIS
-
-            int[][] elementsByPeriodsARR = new int[18][]; // jagged array to hold numbers in a paticular period in an array
-
-
-            for (int i = 0; i <= elementsByPeriodsARR.Length - 1; i++)  // initalize the values of the array and fill them the with proper
-            {                                                           //amount of space
-			
-                elementsByPeriodsARR[i] = new int[periodIndexs[i]];
-               
-                
-			}
-
-
-
-
-
-
-
-            // sample outputish
-            for (int i = 0; i < elementsByPeriodsARR.Length; i++)
+            for (int i = 0; i < elementSeperatedByPeriod.Length; i++)
             {
                 Console.Write("Period # {0} contains: ", i);
 
-
-
-                int[] innerArr = elementsByPeriodsARR[i];
-                for (int j = 0; j < innerArr.Length; j++)
+               int[] innerArr = elementSeperatedByPeriod[i];
+               for (int j = 0; j < innerArr.Length; j++)
                 {
                     Console.Write(innerArr[j] + " ");
                 }
@@ -101,12 +62,6 @@ namespace dbtest
                 Console.WriteLine();
 
             }
-
-
-
-            
-            
-
 
             Console.ReadLine();
         }
