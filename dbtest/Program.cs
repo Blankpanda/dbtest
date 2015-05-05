@@ -17,16 +17,14 @@ namespace dbtest
        
         static void Main(string[] args)
         {
-            //x = new NamingCompounds();
+            x = new NamingCompounds();
 
-            //Console.WriteLine("Please enter in a compound: ");
-            //string inStr = Console.ReadLine();
-            
-            //Console.WriteLine(x.BinaryIonicCompound(inStr));
-            //Console.ReadLine();
+            Console.WriteLine("Please enter in a compound: ");
+            string inStr = Console.ReadLine();
 
-            PeriodicTable xy = new PeriodicTable();
-            xy.test();
+            Console.WriteLine(x.BinaryIonicCompound(inStr));
+            Console.ReadLine();
+
 
 
         }
