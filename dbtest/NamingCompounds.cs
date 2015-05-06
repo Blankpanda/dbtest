@@ -13,6 +13,7 @@ namespace dbtest
         private static IntializeDatabase DB; // used for database initalization from Intializedatabase Class
         private static SQLiteCommand QueryCommand; // used for passing query to the reader from Intialized Database class
         private static List<string> elements; // used for taking the input from the reader method in IntializedDatabase class
+        private static PeriodicTable pTable;
 
             
         /*
@@ -44,6 +45,8 @@ namespace dbtest
                 DB.openDataBase(); // open the database in working directory
                 QueryCommand = new SQLiteCommand(); // initalize the command to pass into the reader
                 elements = new List<string>(); // initalize list for database elements
+                pTable = new PeriodicTable(); // initalize PeriodicTable object for determining periods
+               
 
                 // returns seperated cation and anion and places it into a list
                  List<string> symbolsSplit = new List<string>(splitSymbolByCapital(symbolCompound));
@@ -53,11 +56,23 @@ namespace dbtest
 
                /*exception code determine if the user entered in the wrong type of formula */
 
+                 // checks to see if the element is an oxide
                  if ( symbolsSplit[1].Contains("O") || symbolsSplit[symbolsSplit.Count - 1].Contains("O"))
                  {
                      Console.WriteLine("Element is an oxide or is invalid");
                      return "";
                  }
+
+                // checks the to see if the element is a valid cation
+                 string cationPeriodStr = "";
+                 pTable.GetPeriodicGroup(cationPeriodStr);
+                 int cationPeriodInt = Convert.ToInt32(cationPeriodStr);
+
+                 if (!(cationPeriodInt >= 1 && cationPeriodInt <= 12))
+                 {
+                     Console.WriteLine("cation is not valid");
+                 }
+
 
            
 
