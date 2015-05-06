@@ -27,15 +27,16 @@ namespace dbtest
 
 
             PeriodicTable test = new PeriodicTable();
+            test.OutputPeriodTable();
 
-            test.test();
-            
-            
+            Console.WriteLine("Please enter in a single element: ");
+            string element = Console.ReadLine();
+            Console.WriteLine(test.GetPeriodicGroup(element));
+
+
+
+
             Console.ReadLine();
-
-
-
-
         }
 
         /*

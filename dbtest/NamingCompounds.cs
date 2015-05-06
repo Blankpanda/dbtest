@@ -36,6 +36,7 @@ namespace dbtest
                 string cation = "";
                 string anion = "";
                 string verboseCompound = "";
+                
                
                 
 
@@ -64,15 +65,18 @@ namespace dbtest
 
                 //queries the database to match symbol to name
 
-                    // determining the cation
-              
-                    QueryCommand = DB.I_BinaryQueryDatabase(cation); // query the database and pass the query to the reader
-                    elements = DB.readDatabase(QueryCommand); // readDatabase returns read data as a list
-                    cation = elements[0];
+                 string binaryIonicCompoundQuery = "SELECT * FROM elements WHERE Symbol Like ";  // query argument
+                 string binaryIonicCompoundReaderArgument = "Name";
 
-                    //determining the anion
-                    QueryCommand = DB.I_BinaryQueryDatabase(anion);
-                    elements = DB.readDatabase(QueryCommand);
+                    // determine the cation
+              
+                    QueryCommand = DB.QueryDatabase(binaryIonicCompoundQuery + "'" + cation + "'"); // query the database and pass the query to the reader
+                    elements = DB.readDatabase(QueryCommand , binaryIonicCompoundReaderArgument  ); // readDatabase returns read data as a list
+                    cation = elements[0];
+               
+                    //determine the anion
+                    QueryCommand = DB.QueryDatabase(binaryIonicCompoundQuery + "'" + anion + "'");
+                    elements = DB.readDatabase(QueryCommand , binaryIonicCompoundReaderArgument );
                     anion = elements[0];
 
                     // adding "ide" to the end of the anion         
@@ -136,14 +140,6 @@ namespace dbtest
         *   
         */
 
-        private string CommonPolyatomicIons(string symbolCompound)
-        {
-
-
-
-
-            return "";
-        }
 
 
 
@@ -155,10 +151,7 @@ namespace dbtest
 
 
 
-
-
-
-
+        
        /*
         * 
         * General use methods 

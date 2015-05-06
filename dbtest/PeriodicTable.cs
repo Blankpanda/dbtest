@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.SQLite;
 namespace dbtest
 {
+   
+
+
 
     /* this class handles several different things about the periodic table */
 
-
     class PeriodicTable
     {
+
+        IntializeDatabase DB = new IntializeDatabase();
+        private static SQLiteCommand QueryCommand; // used for passing query to the reader from Intialized Database class
+        private static List<string> elements; // used for taking the input from the reader method in IntializedDatabase class
+        
+
         public const int TOTAL_ELEMENT_COUNT = 118; // JUST INCASE WE NEED THIS
+        
+        
 
 
 
@@ -46,29 +56,87 @@ namespace dbtest
 
 
         //DOCCUMENT THIS METHOD LATER
-        /* its basically a test of some kind anyway */
-        public void test()
+        /* its basically a test of some kind anyway ;* */
+        public void OutputPeriodTable()
         {
+            int nameCounter = 1; // using this as a counter to start at one without stepping out of bounds
+
+
             for (int i = 0; i < elementSeperatedByPeriod.Length; i++)
             {
-                Console.Write("Period # {0} contains: ", i);
+                
+                Console.Write("Period # {0} contains: ", nameCounter);
 
                int[] innerArr = elementSeperatedByPeriod[i];
                for (int j = 0; j < innerArr.Length; j++)
                 {
                     Console.Write(innerArr[j] + " ");
-                }
+             
 
-                Console.WriteLine();
+                }
+                nameCounter++;
+                Console.WriteLine();    
 
             }
+       
+           
+      
 
-            Console.ReadLine();
         }
 
 
+        public string GetPeriodicGroup(string eleInp)
+        {
 
-        
+            // database initalization stuff
+            DB.openDataBase();
+            QueryCommand = new SQLiteCommand();
+           
+
+            string periodicGroupQuery = "SELECT * FROM elements WHERE Symbol Like " + "'" + eleInp + "'"; // query argument
+            string periodicGroupReaderArgument = "Atomic_Number";
+
+            QueryCommand = DB.QueryDatabase(periodicGroupQuery); // query the database and pass the query to the reader
+            elements = DB.readDatabase(QueryCommand, periodicGroupReaderArgument); // gets the elements atomic number and place it into a string
+
+
+            int atomicNumber = Convert.ToInt32(elements[0]);
+            int period = 0;
+
+
+            for (int i = 0; i < elementSeperatedByPeriod.Length ; i++) // loop through jagged array to compare atomicNumber to the values of elementSeperatedByPeriod[i][j]
+            {
+
+
+                int[] innerArr = elementSeperatedByPeriod[i];
+
+
+                for (int j = 0; j < innerArr.Length; j++)
+                {
+
+
+                    if (atomicNumber == innerArr[j])   // checks the user input to the values of the array and returns the atomic number
+                    {
+                        period = i;
+                        break;
+                                       
+                    }
+                  
+
+                }
+
+            }
+
+            period++; // increase by one to make 0 -> 1  | 17 -> 18 | and so forth...
+
+            return period.ToString();
+           /*  string FOURWHOLEBEEPS as console.beep;
+               FOURWHOLEBEEPS = FOURWHOLEBEEPS * 4; */
+
+
+        }
+
+     
 
     }
 }
