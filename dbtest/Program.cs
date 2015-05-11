@@ -19,10 +19,11 @@ namespace dbtest
         {
             x = new NamingCompounds();
 
-            Console.WriteLine("Please enter in a compound: ");
+            Console.WriteLine("Please enter in a polyatomic compound: ");
             string inStr = Console.ReadLine();
 
-            Console.WriteLine(x.BinaryIonicCompound(inStr));
+             Console.WriteLine(x.BinaryIonicCompound(inStr));
+              
 
 
 

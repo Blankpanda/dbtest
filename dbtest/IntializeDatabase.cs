@@ -41,12 +41,6 @@ namespace dbtest
          *This method will run a simple query to the database called polyIons 
          * to determine the entered polyatomic Ion
          */
-        public dynamic P_PolyQueryDatabase(string inp)
-        {
-            string sqlQuery = "";
-            SQLiteCommand command = new SQLiteCommand(sqlQuery,E_CONNECTION);
-            return "";
-        }
 
 
         /*

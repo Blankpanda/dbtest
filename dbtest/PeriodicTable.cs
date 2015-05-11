@@ -21,6 +21,8 @@ namespace dbtest
         
 
         public const int TOTAL_ELEMENT_COUNT = 118; // JUST INCASE WE NEED THIS
+        public const int TOTAL_PERIOD_COUNT = 18;
+        public const int TOTAL_GROUP_COUNT = 7;
         
         
 
@@ -103,13 +105,27 @@ namespace dbtest
             int atomicNumber = Convert.ToInt32(elements[0]);
             int period = 0;
 
+            retrievePeriod(atomicNumber, period);
+            
+            period++; // increase by one to make 0 -> 1  | 17 -> 18 | and so forth...
 
-            for (int i = 0; i < elementSeperatedByPeriod.Length ; i++) // loop through jagged array to compare atomicNumber to the values of elementSeperatedByPeriod[i][j]
+
+            return period.ToString();
+
+           /*  string FOURWHOLEBEEPS as console.beep;
+               FOURWHOLEBEEPS = FOURWHOLEBEEPS * 4; */
+
+
+        }
+
+        /* loop through jagged array to compare atomicNumber
+         to the values of elementSeperatedByPeriod[i][j] */
+        private void retrievePeriod(int atomicNumber, int period)
+        {
+
+            for (int i = 0; i < elementSeperatedByPeriod.Length; i++)
             {
-
-
                 int[] innerArr = elementSeperatedByPeriod[i];
-
 
                 for (int j = 0; j < innerArr.Length; j++)
                 {
@@ -119,20 +135,13 @@ namespace dbtest
                     {
                         period = i;
                         break;
-                                       
+
                     }
-                  
+
 
                 }
 
             }
-
-            period++; // increase by one to make 0 -> 1  | 17 -> 18 | and so forth...
-
-            return period.ToString();
-           /*  string FOURWHOLEBEEPS as console.beep;
-               FOURWHOLEBEEPS = FOURWHOLEBEEPS * 4; */
-
 
         }
 
