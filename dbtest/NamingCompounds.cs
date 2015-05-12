@@ -15,6 +15,9 @@ namespace dbtest
         private static List<string> elements; // used for taking the input from the reader method in IntializedDatabase class
         private static PeriodicTable pTable; // used to gather information from elements relating to the PeriodicTable class
 
+        private static string[] polyatomicPrefix = { "Hypo", "", "", "Per" };
+        private static string[] polyatomicSuffix = { "ate", "ate", "ite", "ite" };
+
 
 
    
@@ -69,7 +72,7 @@ namespace dbtest
                  string periodNumberSTR = pTable.GetPeriodicGroup(cation);
                  int cPeriodNumberINT = Convert.ToInt32(periodNumberSTR);
 
-                 if (cPeriodNumberINT <= 12) // if the cation is a not a transition metal, akali earth or akaline element
+                 if (cPeriodNumberINT >= 12) // if the cation is a not a transition metal, akali earth or akaline element
                  {
                      Console.WriteLine("Invalid Cation entered for a binary ionic compound");
                      return "";
@@ -183,12 +186,21 @@ namespace dbtest
                  * 2. determining if the user entered an oxyion
                  * 3. determine if the user entered a hydrate { BaCl2 * 2H2O } */
 
-                // determining the cation
-                List<string> symbolsSplit = new List<string>(splitSymbolByCapital(symbolCompound)); // splitSymbolByCapitalAndNumber is used to keep numbers in cation and anion groups
-                cation = symbolsSplit[0];
-                anion = symbolsSplit[1];
+                // determining the cation and anion
+                 
+                List<string> symbolsSplit = new List<string>
+                (splitSymbolByCapital(symbolCompound)); // splitSymbolByCapitalAndNumber is used to keep numbers in cation and anion groups
 
-                //consider parralel arrays
+                 cation = symbolsSplit[0];
+                 anion = symbolsSplit[1];
+
+                
+
+                List<string> elementAmmount = new List<string>
+                (splitSymbolByCapitalAndNumber(symbolCompound)); // parallel list to symbolsSplit for the purpose of adding numeric prefixs to anions
+
+
+                oxyion(symbolsSplit, elementAmmount);
 
 
             }
@@ -199,6 +211,11 @@ namespace dbtest
             }
 
             return "";
+        }
+
+        private void oxyion(List<string> symbolsSplit, List<string> elementAmmount)
+        {
+            
         }
 
 
@@ -223,10 +240,11 @@ namespace dbtest
            return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
         }
         
-        //private string[] splitSymbolByCapitalAndNumber(string sym)
-        //{
-        //    return Regex.Split(sym, @"(")
-        //}
+        /* Returns a list of the numeric values in a string */
+        private string[] splitSymbolByCapitalAndNumber(string sym)
+        {
+            return Regex.Split(sym, @"\D+");
+        }
 
 
       

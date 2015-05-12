@@ -105,23 +105,21 @@ namespace dbtest
             int atomicNumber = Convert.ToInt32(elements[0]);
             int period = 0;
 
-            retrievePeriod(atomicNumber, period);
-            
+            period = retrievePeriod(atomicNumber, period);       
             period++; // increase by one to make 0 -> 1  | 17 -> 18 | and so forth...
 
 
             return period.ToString();
 
-           /*  string FOURWHOLEBEEPS as console.beep;
-               FOURWHOLEBEEPS = FOURWHOLEBEEPS * 4; */
-
+     
 
         }
 
         /* loop through jagged array to compare atomicNumber
          to the values of elementSeperatedByPeriod[i][j] */
-        private void retrievePeriod(int atomicNumber, int period)
+        private int retrievePeriod(int atomicNumber, int period)
         {
+            int match = 0; // value of i when atomic number matches the a value in the jagged array
 
             for (int i = 0; i < elementSeperatedByPeriod.Length; i++)
             {
@@ -133,15 +131,18 @@ namespace dbtest
 
                     if (atomicNumber == innerArr[j])   // checks the user input to the values of the array and returns the atomic number
                     {
-                        period = i;
+                        match = i;
                         break;
-
+                        
                     }
 
 
                 }
 
             }
+
+            return match;
+
 
         }
 

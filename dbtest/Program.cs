@@ -19,20 +19,20 @@ namespace dbtest
         {
             x = new NamingCompounds();
 
-            Console.WriteLine("Please enter in a polyatomic compound: ");
+            Console.WriteLine("Please enter in oxyion ionic compound: ");
             string inStr = Console.ReadLine();
-
-             Console.WriteLine(x.BinaryIonicCompound(inStr));
+            Console.WriteLine(x.PolyAtomicIons(inStr));
               
 
 
 
-            PeriodicTable test = new PeriodicTable();
-            test.OutputPeriodTable();
+            //PeriodicTable test = new PeriodicTable();
+            //test.OutputPeriodTable();
 
-            Console.WriteLine("Please enter in a single element: ");
-            string element = Console.ReadLine();
-            Console.WriteLine(test.GetPeriodicGroup(element));
+            //Console.WriteLine("Please enter in a single element: ");
+            //string element = Console.ReadLine();
+            //Console.WriteLine(test.GetPeriodicGroup(element));
+
 
 
 
