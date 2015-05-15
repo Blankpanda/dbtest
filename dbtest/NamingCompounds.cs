@@ -68,7 +68,7 @@ namespace dbtest
                      return "";
                  }
 
-                // checks the to see if the element is a valid cation
+                 // checks the to see if the element is a valid cation
                  string periodNumberSTR = pTable.GetPeriodicGroup(cation);
                  int cPeriodNumberINT = Convert.ToInt32(periodNumberSTR);
 
@@ -165,6 +165,11 @@ namespace dbtest
 
 
 
+        /* split the symbols up based on cation | anion and include numbers with the proper element
+             * there will be three ways to determine the element.
+             * 1. refering to a different database that contains common poly atomics
+             * 2. determining if the user entered an oxyion
+             * 3. determine if the user entered a hydrate { BaCl2 * 2H2O } */
 
         public string PolyAtomicIons(string symbolCompound)
         {
@@ -179,28 +184,59 @@ namespace dbtest
                 string cation = "";
                 string anion = "";
                 string verboseCompound = "";
-                
-                /* split the symbols up based on cation | anion and include numbers with the proper element
-                 * there will be three ways to determine the element.
-                 * 1. refering to a different database that contains common poly atomics
-                 * 2. determining if the user entered an oxyion
-                 * 3. determine if the user entered a hydrate { BaCl2 * 2H2O } */
 
-                // determining the cation and anion
-                 
+
+            
+                // determining the cation and anion SYMBOL
                 List<string> symbolsSplit = new List<string>
                 (splitSymbolByCapital(symbolCompound)); // splitSymbolByCapitalAndNumber is used to keep numbers in cation and anion groups
-
                  cation = symbolsSplit[0];
                  anion = symbolsSplit[1];
 
-                
+
+                /*@TODO It would probably be useful to make this in a function for use later */
+                 if (Regex.IsMatch( cation , @"\d" )) // removes numeric data from strings
+                     Regex.Replace(cation, @"\d", "" );
+
+                 if (Regex.IsMatch( anion , @"\d" ))
+                     Regex.Replace( anion , @"\d", "" );
+
+
+
+
 
                 List<string> elementAmmount = new List<string>
                 (splitSymbolByCapitalAndNumber(symbolCompound)); // parallel list to symbolsSplit for the purpose of adding numeric prefixs to anions
 
+                
 
-                oxyion(symbolsSplit, elementAmmount);
+               /*@TODO It would probably be useful to make this in a function for use later */
+
+                for (int i = 0; i <= elementAmmount.Count; i++)
+                {
+                    elementAmmount[i].Remove(@"[A-Z]");
+                }
+            
+
+                
+                var polyatomicIonCompoundQuery = "SELECT * FROM elements WHERE Symbol Like ";  // query argument
+                string polyatomicIonicCompoundReaderArgument = "Name";
+
+                // build the query to retrieve based on the seperated symbols
+
+                 //cation
+                 QueryCommand = DB.QueryDatabase( polyatomicIonCompoundQuery + "'" + cation + "'" ); 
+                 elements = DB.readDatabase( QueryCommand , polyatomicIonicCompoundReaderArgument);
+                 cation = elements[0];
+
+                //anion
+                 QueryCommand = DB.QueryDatabase(polyatomicIonCompoundQuery + "'" + anion + "'");
+                 elements = DB.readDatabase(QueryCommand, polyatomicIonicCompoundReaderArgument);
+                 anion = elements[0];
+
+
+                 Console.WriteLine(cation + " " + anion);
+                 Console.WriteLine(elementAmmount[0] + " " + elementAmmount[1]);
 
 
             }
