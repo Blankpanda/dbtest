@@ -186,7 +186,10 @@ namespace dbtest
                 string verboseCompound = "";
 
 
-            
+
+
+
+
                 // determining the cation and anion SYMBOL
                 List<string> symbolsSplit = new List<string>
                 (splitSymbolByCapital(symbolCompound)); // splitSymbolByCapitalAndNumber is used to keep numbers in cation and anion groups
@@ -194,28 +197,27 @@ namespace dbtest
                  anion = symbolsSplit[1];
 
 
-                /*@TODO It would probably be useful to make this in a function for use later */
-                 if (Regex.IsMatch( cation , @"\d" )) // removes numeric data from strings
-                     Regex.Replace(cation, @"\d", "" );
+                 if (containsNumbers(symbolCompound))
+                 {
+                     // parallel list to symbolsSplit for the purpose of adding numeric prefixs to anions
+                     List<string> elementAmmount = new List<string>();
 
-                 if (Regex.IsMatch( anion , @"\d" ))
-                     Regex.Replace( anion , @"\d", "" );
+                     //regex to extract the numbers from the array
+                     
+                     var numCation = Regex.Replace(cation, @"\[\[A-Z]\", "");
+                     var numAnion  = Regex.Replace(anion, @"\[\A-Z]\", "");
 
 
 
+                 }
+                
 
 
-                List<string> elementAmmount = new List<string>
-                (splitSymbolByCapitalAndNumber(symbolCompound)); // parallel list to symbolsSplit for the purpose of adding numeric prefixs to anions
 
                 
 
                /*@TODO It would probably be useful to make this in a function for use later */
 
-                for (int i = 0; i <= elementAmmount.Count; i++)
-                {
-                    elementAmmount[i].Remove(@"[A-Z]");
-                }
             
 
                 
@@ -236,7 +238,7 @@ namespace dbtest
 
 
                  Console.WriteLine(cation + " " + anion);
-                 Console.WriteLine(elementAmmount[0] + " " + elementAmmount[1]);
+               
 
 
             }
@@ -247,6 +249,25 @@ namespace dbtest
             }
 
             return "";
+        }
+
+        private bool containsNumbers(string symbolCompound)
+        {
+            char[] sym = symbolCompound.ToCharArray();
+
+            for (int j = 0; j <= symbolCompound.Length; j++)
+			{
+                for (int i = 0; i <= 9; i++)
+                {
+                    if (symbolCompound[j] == i)
+                    {
+                        return true;
+                    }
+			 
+			    }   
+            
+            }
+            return false;
         }
 
         private void oxyion(List<string> symbolsSplit, List<string> elementAmmount)
@@ -275,14 +296,7 @@ namespace dbtest
         {
            return Regex.Split(sym, @"(?<!^)(?=[A-Z])");  // regex not sure how this works, got on stack overflow
         }
-        
-        /* Returns a list of the numeric values in a string */
-        private string[] splitSymbolByCapitalAndNumber(string sym)
-        {
-            return Regex.Split(sym, @"\D+");
-        }
-
-
+  
       
         /*
          * reverses string to make words easier to remove from 
