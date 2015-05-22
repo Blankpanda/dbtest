@@ -197,8 +197,8 @@ namespace dbtest
                  anion = symbolsSplit[1];
 
 
-                 if (containsNumbers(symbolCompound))
-                 {
+                 if (containsNumbers(cation))
+                  {
                      // parallel list to symbolsSplit for the purpose of adding numeric prefixs to anions
                      List<string> elementAmmount = new List<string>();
 
@@ -207,18 +207,12 @@ namespace dbtest
                      var numCation = Regex.Replace(cation, @"\[\[A-Z]\", "");
                      var numAnion  = Regex.Replace(anion, @"\[\A-Z]\", "");
 
+                     Console.WriteLine(numCation + " " + numAnion);
 
-
-                 }
+                  }
                 
 
 
-
-                
-
-               /*@TODO It would probably be useful to make this in a function for use later */
-
-            
 
                 
                 var polyatomicIonCompoundQuery = "SELECT * FROM elements WHERE Symbol Like ";  // query argument
@@ -251,23 +245,27 @@ namespace dbtest
             return "";
         }
 
-        private bool containsNumbers(string symbolCompound)
+        private bool containsNumbers(string sym)
         {
-            char[] sym = symbolCompound.ToCharArray();
 
-            for (int j = 0; j <= symbolCompound.Length; j++)
-			{
-                for (int i = 0; i <= 9; i++)
-                {
-                    if (symbolCompound[j] == i)
+            char[] c = sym.ToCharArray();
+            char[] numbs = { '1' , '2' , '3' , '4', '5', '6', '7', '8', '9' };
+
+            for (int i = 0; i < c.Length; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                 {
+                   
+
+                    if (c[i] == numbs[j])
                     {
                         return true;
                     }
-			 
-			    }   
-            
+
+                }
             }
             return false;
+           
         }
 
         private void oxyion(List<string> symbolsSplit, List<string> elementAmmount)
